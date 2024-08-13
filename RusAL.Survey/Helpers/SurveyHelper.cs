@@ -28,8 +28,9 @@ namespace RusAL.Survey.Helpers
                     else if(args.Length == 2)
                     {
                         survey.InnerCommand = true;
-                        var nextCommand = args[1];
-                        return Convert.ToInt32(nextCommand.Trim());
+                        var nextCommandStr = args[1];
+                        var nextCommand = Convert.ToInt32(nextCommandStr.Trim());
+                        return nextCommand;
                     }
 
                 }

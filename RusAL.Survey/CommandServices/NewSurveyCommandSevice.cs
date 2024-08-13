@@ -32,12 +32,17 @@ namespace RusAL.Survey.CommandServices
         {
             hasErrors = false;
             var exit = false;
-            
+
             if (!survey.InnerCommand)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("ЗАПОЛНИТЕ АНКЕТУ !");
             }
+            else
+            {
+                startQuestion -= 1;
+            }
+
 
             survey.InnerCommand = false;
 

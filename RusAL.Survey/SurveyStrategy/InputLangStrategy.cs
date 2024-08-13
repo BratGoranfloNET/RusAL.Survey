@@ -17,6 +17,13 @@ namespace RusAL.Survey.SurveyStrategy
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(question);
                 var strValue = Console.ReadLine();
+                checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
+                if (checkInnerCommand >= 0)
+                {
+                    survey.NextQuestion = checkInnerCommand;
+                    exitFlag = true;
+                    break;
+                }
                 if (lang.Contains(strValue.Trim()))
                 {
                     survey.Language = strValue;
@@ -26,14 +33,6 @@ namespace RusAL.Survey.SurveyStrategy
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Ошибка ввода языка программирования");
-                }
-
-                checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
-                if (checkInnerCommand >= 0)
-                {
-                    survey.NextQuestion = checkInnerCommand;
-                    exitFlag = true;
-                    break;
                 }
                 
             }

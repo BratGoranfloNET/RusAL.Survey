@@ -18,6 +18,7 @@ namespace RusAL.Survey.SurveyStrategy
             {
                 survey.NextQuestion = checkInnerCommand;
                 exitFlag = true;
+                return exitFlag;
             }
             survey.FIO = strValue;
             return exitFlag;

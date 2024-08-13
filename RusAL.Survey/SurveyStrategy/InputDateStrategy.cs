@@ -29,14 +29,12 @@ namespace RusAL.Survey.SurveyStrategy
                     System.Globalization.CultureInfo.InvariantCulture);
                     survey.BirthDate = date;
                     break;
-
                 }
                 catch
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Ошибка ввода Даты");
                 }
-
             }
 
             return exitFlag;
