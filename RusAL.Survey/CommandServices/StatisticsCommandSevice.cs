@@ -27,9 +27,9 @@ namespace RusAL.Survey.CommandServices
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion)
+        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
         {
-             hasErrors = false;
+            hasErrors = false;
 
             var dtoList =  _fileService.GetSurveys();
 
@@ -39,17 +39,7 @@ namespace RusAL.Survey.CommandServices
             //замаппим dto
             foreach (var dto in dtoList)
             {
-                var sur = new SurveyItem();
-
-                sur.FIO = dto.FIO;
-                var format = "dd.MM.yyyy";
-                DateTime date = DateTime.ParseExact(dto.BirthDate, format,
-                System.Globalization.CultureInfo.InvariantCulture);
-                sur.BirthDate = date;
-                sur.Language = dto.Language;
-                int intValue;              
-                sur.Experience = int.TryParse(dto.Experience, out intValue) ? intValue : 0;
-                sur.Phone = dto.Phone;
+                var sur = SurveyHelper.MapSurvey(dto);
                 surList.Add(sur);
 
                 int age = now.Year - sur.BirthDate.Year;
@@ -71,7 +61,7 @@ namespace RusAL.Survey.CommandServices
             Console.WriteLine($"1. Средний возраст всех опрошенных: {ageSum/surList.Count}");
             Console.WriteLine($"2. Самый популярный язык программирования: {lang}");
             Console.WriteLine($"3. Самый опытный программист: {maxExpYears} {yearsString} у {fio}");
-        }
 
+        }
     }
 }

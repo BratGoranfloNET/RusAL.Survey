@@ -1,4 +1,6 @@
 ﻿
+using RusAL.Survey.Models;
+
 namespace RusAL.Survey.Helpers
 {
     public static class SurveyHelper
@@ -56,6 +58,22 @@ namespace RusAL.Survey.Helpers
             var y = ((years / 10 == 1) || (years - 1) % 10 > 3) ? "лет" : ((years % 10 == 1) ? "год" : "года");
 
             return y;
+        }
+
+        public static SurveyItem MapSurvey(SurveyItemDto dto)
+        {
+            var survey = new SurveyItem();
+            survey.FIO = dto.FIO;
+            var format = "dd.MM.yyyy";
+            DateTime date = DateTime.ParseExact(dto.BirthDate, format,
+            System.Globalization.CultureInfo.InvariantCulture);
+            survey.BirthDate = date;
+            survey.Language = dto.Language;
+            int intValue;
+            survey.Experience = int.TryParse(dto.Experience, out intValue) ? intValue : 0;
+            survey.Phone = dto.Phone;
+
+            return survey;
         }
     }
 }

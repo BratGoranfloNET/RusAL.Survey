@@ -1,6 +1,7 @@
 ﻿using Q101.ConsoleHelper.Abstract;
 using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Models;
+using System.Xml.Schema;
 
 namespace RusAL.Survey.Commands.Concrete
 {
@@ -37,19 +38,26 @@ namespace RusAL.Survey.Commands.Concrete
         public void Run( out bool hasErrors, out bool isExit, SurveyItem survey)
         {
             hasErrors = false;
-            isExit = false;
-            
+            isExit  = false;
+            var commandArg = string.Empty;
+            int startQuestion = 0;
+
             var commandText = string.Empty;            
 
             commandText = _consoleHelper.GetStringFromConsole("Выберите действие:");
+                       
+            var command = _commandProvider.Commands.FirstOrDefault(c => commandText.Contains(c.CommandText));
 
-            var command = _commandProvider.Commands.FirstOrDefault(c => c.CommandText == commandText);
-
+            if (command != null) 
+            {
+                commandArg = commandText.Replace(command.CommandText, "");
+            }
+           
             if (command != null)
             {
-                command.Service.Start(out hasErrors, survey);
+                command.Service.Start(out hasErrors, survey, startQuestion, commandArg);
                 // перезапускаем внутренние команды
-                if (survey.NextQuestion != 0)
+                if (survey.NextQuestion > 0)
                 {
                     command.Service.Start(out hasErrors, survey, survey.NextQuestion);
                 }
@@ -57,12 +65,17 @@ namespace RusAL.Survey.Commands.Concrete
             }
             else 
             {
-                if(commandText == "-exit")
-                {
-                    isExit = true;                    
-                }
+                var commandErrorMessage = string.Empty;
 
-                var commandErrorMessage = $"Команда {commandText} не найдена";
+                if (commandText == "-exit")
+                {
+                    isExit = true;
+                }
+                else 
+                {
+                   commandErrorMessage = $"Команда {commandText} не найдена";
+                }
+                             
 
                 hasErrors = true;
 

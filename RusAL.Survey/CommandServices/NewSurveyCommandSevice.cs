@@ -10,7 +10,7 @@ namespace RusAL.Survey.CommandServices
     /// <summary>
     /// Заполнить новую анкету
     /// </summary>
-    public class NewProfileCommandSevice : ICommandService
+    public class NewSurveyCommandSevice : ICommandService
     {
         /// <summary>
         /// Работа с консолью.
@@ -22,13 +22,13 @@ namespace RusAL.Survey.CommandServices
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public NewProfileCommandSevice(IQ101ConsoleHelper consoleHelper, IFileSurveyService fileService)
+        public NewSurveyCommandSevice(IQ101ConsoleHelper consoleHelper, IFileSurveyService fileService)
         {
             _consoleHelper = consoleHelper;
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion)
+        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
         {
             hasErrors = false;
             var exit = false;
@@ -83,8 +83,7 @@ namespace RusAL.Survey.CommandServices
                         break;
                 }
 
-            }
-           
+            }           
 
         }
 

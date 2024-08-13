@@ -6,6 +6,7 @@ namespace RusAL.Survey.Services.Concrete
 {
     public class FileSurveyService : IFileSurveyService
     {
+        private string _location => System.Reflection.Assembly.GetExecutingAssembly().Location;
         private  string _directory => "Анкеты";
 
         private string[] _points => new string[]
@@ -17,11 +18,12 @@ namespace RusAL.Survey.Services.Concrete
                 "5. Мобильный телефон:",
                 "Анкета заполнена:"
             };
+                
 
         public IEnumerable<SurveyItemDto> GetSurveys()
         {
-            var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            var pathLoc = Path.GetDirectoryName(location);
+            
+            var pathLoc = Path.GetDirectoryName(_location);
             var fullDir = Path.Combine(pathLoc, _directory);
 
             string[] files = Directory.GetFiles(fullDir);
@@ -29,48 +31,22 @@ namespace RusAL.Survey.Services.Concrete
             var dtoList = new List<SurveyItemDto>();
             
             foreach (string file in files)
-            {                
-                var survItem = new SurveyItemDto();
+            {
+                var survItem = GetSurveyDtoFromFile(file);
 
-                using (StreamReader reader = new StreamReader(file))
-                {
-                    string? s;
-                    while ((s = reader.ReadLine()) != null)
-                    {
-                        if (s.StartsWith(_points[0]))
-                           { survItem.FIO = s.Replace(_points[0], "").Trim(); }
-
-                        if (s.StartsWith(_points[1]))
-                           { survItem.BirthDate = s.Replace(_points[1],"").Trim(); }
-
-                        if (s.StartsWith(_points[2]))
-                           { survItem.Language = s.Replace(_points[2], "").Trim(); }
-
-                        if (s.StartsWith(_points[3]))
-                           { survItem.Experience = s.Replace(_points[3], "").Trim(); }
-
-                        if (s.StartsWith(_points[4]))
-                            { survItem.Phone = s.Replace(_points[4], "").Trim(); }
-
-                        if (s.StartsWith(_points[5]))
-                            { survItem.Created = s.Replace(_points[5], "").Trim(); }
-
-                    }
-
-                    dtoList.Add(survItem);
-                } 
-                
+                dtoList.Add(survItem);
             }
             
             return dtoList;
         }
 
-        public void WriteSurvayFile(SurveyItem survey)
+        public void SaveSurvayFile(SurveyItem survey, out bool hasErrors)
         {
+            hasErrors = false;
+
             try
-            {
-                var location = System.Reflection.Assembly.GetExecutingAssembly().Location;               
-                var pathLoc = Path.GetDirectoryName(location);
+            {                            
+                var pathLoc = Path.GetDirectoryName(_location);
                 var fullDir = Path.Combine(pathLoc, _directory);
                
                 bool exists = Directory.Exists(Path.Combine(fullDir));               
@@ -98,7 +74,93 @@ namespace RusAL.Survey.Services.Concrete
             }
             catch (Exception ex)
             {
+                hasErrors = true;
                 var message = ex.Message;
+                Console.WriteLine($"Произошла ошибка при записи файла {message}"); 
+            }
+        }
+
+        public SurveyItemDto GetSurveyByFileName(string fileName)
+        {
+            var dto = new SurveyItemDto();
+
+            try 
+            {
+                var pathLoc = Path.GetDirectoryName(_location);
+                var fullDir = Path.Combine(pathLoc, _directory);
+                var fullPath = Path.Combine(fullDir, fileName);
+
+                dto = GetSurveyDtoFromFile(fullPath);
+
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                Console.WriteLine($"Файл не найден {message}");
+            }
+
+            return dto;
+        }
+
+        private SurveyItemDto GetSurveyDtoFromFile(string file)
+        {
+            var survItem = new SurveyItemDto();
+
+            using (StreamReader reader = new StreamReader(file))
+            {
+                string? s;
+                while ((s = reader.ReadLine()) != null)
+                {
+                    if (s.StartsWith(_points[0]))
+                    { survItem.FIO = s.Replace(_points[0], "").Trim(); }
+
+                    if (s.StartsWith(_points[1]))
+                    { survItem.BirthDate = s.Replace(_points[1], "").Trim(); }
+
+                    if (s.StartsWith(_points[2]))
+                    { survItem.Language = s.Replace(_points[2], "").Trim(); }
+
+                    if (s.StartsWith(_points[3]))
+                    { survItem.Experience = s.Replace(_points[3], "").Trim(); }
+
+                    if (s.StartsWith(_points[4]))
+                    { survItem.Phone = s.Replace(_points[4], "").Trim(); }
+
+                    if (s.StartsWith(_points[5]))
+                    { survItem.Created = s.Replace(_points[5], "").Trim(); }
+
+                }
+            }
+
+            return survItem;
+        }
+
+        public void DeleteSurveyByFileName(string fileName, out bool hasErrors)
+        {
+            hasErrors = false;
+
+            try
+            {
+                var pathLoc = Path.GetDirectoryName(_location);
+                var fullDir = Path.Combine(pathLoc, _directory);
+                var fullPath = Path.Combine(fullDir, fileName);
+
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                }
+                else 
+                {
+                    hasErrors = true;
+                    Console.WriteLine($"Файл не найден  {fullPath}");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                hasErrors = true;
+                var message = ex.Message;
+                Console.WriteLine($"Ошибка при удалении файла  {message}");
             }
         }
     }

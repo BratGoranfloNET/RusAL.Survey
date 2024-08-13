@@ -11,6 +11,6 @@ namespace RusAL.Survey.Commands.Abstract
         /// Запуск команды.
         /// </summary>
         /// <param name="hasErrors">Наличие некритичных ошибок при выполнении.</param>
-        void Start(out bool hasErrors, SurveyItem survey, int startQuestion = 0);
+        void Start(out bool hasErrors, SurveyItem survey, int startQuestion = 0, string commandArg = "");
     }
 }

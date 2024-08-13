@@ -12,16 +12,20 @@ namespace RusAL.Survey.Commands.Concrete
         public IList<ConsoleCommand> Commands { get; }
 
         public ConsoleCommandProvider(
-                    NewProfileCommandSevice newProfile, 
-                    SaveProfileCommandSevice saveProfile,
-                    StatisticsCommandSevice statistics
+                    NewSurveyCommandSevice newSurvey,
+                    SaveSurveyCommandSevice saveSurvey,
+                    StatisticsCommandSevice statistics,
+                    FindSurveyCommandSevice findSurvey,
+                    DeleteSurveyCommandSevice deleteSurvey
                     )
         {
-            Commands = new List<ConsoleCommand>(13)
+            Commands = new List<ConsoleCommand>(15)
             {
-                Create("-new_profile", "Заполнение анкеты", newProfile),
-                Create("-save", "Сохранение анкеты", saveProfile),
-                Create("-statistics", "Статистика заполненных анкет", statistics)
+                Create("-new_profile", "Заполнение анкеты", newSurvey),
+                Create("-save", "Сохранение анкеты", saveSurvey),
+                Create("-statistics", "Статистика заполненных анкет", statistics),               
+                Create("-find", "Найти анкету и показать данные анкеты", findSurvey),
+                Create("-delete", "Удалить указанную анкету", deleteSurvey)
             };
 
         }
