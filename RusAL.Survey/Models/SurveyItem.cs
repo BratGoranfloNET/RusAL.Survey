@@ -36,5 +36,7 @@
         ///Дата создания анекеты
         /// </summary>
         public DateTime Created { get; set; }
+
+        public bool InnerCommand { get; set; }
     }
 }

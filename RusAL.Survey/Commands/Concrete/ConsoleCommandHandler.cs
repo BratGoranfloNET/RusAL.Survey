@@ -85,8 +85,9 @@ namespace RusAL.Survey.Commands.Concrete
                 }
 
                 command.Service.Start(out hasErrors, survey, startQuestion, commandArg);
-                // перезапускаем внутренние команды
-                if (survey.NextQuestion > 0 & survey != null)
+
+                // Перезапускаем внутренние команды анкеты 
+                if (survey.NextQuestion >= 0 && survey.InnerCommand)
                 {
                     command.Service.Start(out hasErrors, survey, survey.NextQuestion);
                 }

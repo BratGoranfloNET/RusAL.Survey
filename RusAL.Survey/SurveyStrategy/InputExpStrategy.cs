@@ -18,6 +18,7 @@ namespace RusAL.Survey.SurveyStrategy
             {
                 survey.NextQuestion = checkInnerCommand;
                 exitFlag = true;
+                return exitFlag;
             }
             survey.Experience = Convert.ToInt32(strValue);
             return exitFlag;

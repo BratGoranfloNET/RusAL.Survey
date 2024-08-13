@@ -27,6 +27,7 @@ namespace RusAL.Survey.Helpers
                     }
                     else if(args.Length == 2)
                     {
+                        survey.InnerCommand = true;
                         var nextCommand = args[1];
                         return Convert.ToInt32(nextCommand.Trim());
                     }
@@ -39,13 +40,14 @@ namespace RusAL.Survey.Helpers
             }
 
             if (command.Trim().Contains(innerCommand2))
-            {                
+            {
+                survey.InnerCommand = true;
                 return currQuestion -= 1;
             }
 
             if (command.Trim().Contains(innerCommand3))
             {
-                //survey = null;
+                survey.InnerCommand = true;
                 return 0;
             }
 

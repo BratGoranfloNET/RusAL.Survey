@@ -33,13 +33,16 @@ namespace RusAL.Survey.CommandServices
             hasErrors = false;
             var exit = false;
             
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("ЗАПОЛНИТЕ АНКЕТУ !");
+            if (!survey.InnerCommand)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("ЗАПОЛНИТЕ АНКЕТУ !");
+            }
+
+            survey.InnerCommand = false;
 
             var qustions = SurveyHelper.GetQustions();            
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
+            
             InputContext inputContext;
 
             for (int i = startQuestion; i < qustions.Length; i++)
@@ -83,8 +86,9 @@ namespace RusAL.Survey.CommandServices
                         break;
                 }
 
-            }           
+            }
 
+            
         }
 
     }
