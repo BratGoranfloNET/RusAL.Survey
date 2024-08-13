@@ -1,5 +1,6 @@
 ﻿using Q101.ConsoleHelper.Abstract;
 using RusAL.Survey.Commands.Abstract;
+using RusAL.Survey.Helpers;
 using RusAL.Survey.Models;
 using RusAL.Survey.Services.Abstract;
 
@@ -62,13 +63,14 @@ namespace RusAL.Survey.CommandServices
                 .OrderByDescending(o => o.Count())
                 .FirstOrDefault()?.Key;
 
-            var maxExp = surList.Select(x => x.Experience).ToArray().Max();
-            var fio = surList.Where(x => x.Experience == maxExp).FirstOrDefault()?.FIO;
+            var maxExpYears = surList.Select(x => x.Experience).ToArray().Max();
+            string yearsString = SurveyHelper.GetYearsString(maxExpYears);
+            var fio = surList.Where(x => x.Experience == maxExpYears).FirstOrDefault()?.FIO;
 
             Console.WriteLine("Статистика");
-            Console.WriteLine($"Средний возраст:{ageSum/surList.Count}");
-            Console.WriteLine($"Самый популярный язык:{lang}");
-            Console.WriteLine($"Макисмальный опыт:{maxExp} у {fio}");
+            Console.WriteLine($"1. Средний возраст всех опрошенных: {ageSum/surList.Count}");
+            Console.WriteLine($"2. Самый популярный язык программирования: {lang}");
+            Console.WriteLine($"3. Самый опытный программист: {maxExpYears} {yearsString} у {fio}");
         }
 
     }

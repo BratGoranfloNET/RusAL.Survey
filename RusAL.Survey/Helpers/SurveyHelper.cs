@@ -50,5 +50,12 @@ namespace RusAL.Survey.Helpers
             return qustions;
 
         }
+
+        public static string GetYearsString(int years)
+        {
+            var y = ((years / 10 == 1) || (years - 1) % 10 > 3) ? "лет" : ((years % 10 == 1) ? "год" : "года");
+
+            return y;
+        }
     }
 }
