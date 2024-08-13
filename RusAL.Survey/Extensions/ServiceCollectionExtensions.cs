@@ -37,7 +37,6 @@ namespace RusAL.Survey.Extensions
 
             services.AddSingleton<IFileSurveyService, FileSurveyService>();
             
-
             // Старт приложения.
             services.AddTransient<Startup>();
 

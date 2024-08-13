@@ -27,9 +27,7 @@ namespace RusAL.Survey.Services.Concrete
             string[] files = Directory.GetFiles(fullDir);
 
             var dtoList = new List<SurveyItemDto>();
-
             
-
             foreach (string file in files)
             {                
                 var survItem = new SurveyItemDto();
@@ -63,7 +61,6 @@ namespace RusAL.Survey.Services.Concrete
                 } 
                 
             }
-
             
             return dtoList;
         }

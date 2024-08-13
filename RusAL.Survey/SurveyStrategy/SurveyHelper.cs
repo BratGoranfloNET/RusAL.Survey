@@ -3,7 +3,7 @@ namespace RusAL.Survey.Helpers
 {
     public static class SurveyHelper
     {      
-        // в случае нахождения команды возвращаем номер вопроса
+        // в случае нахождения внутренней  команды возвращаем номер вопроса
         public static int ChechInnerCommands(string command, int currQuestion)
         {
             var innerCommand1 = "-goto_question";

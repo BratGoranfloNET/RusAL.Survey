@@ -6,7 +6,6 @@ namespace RusAL.Survey
 {
     public class Startup
     {       
-
         /// <summary>
         /// Работа с консолью.
         /// </summary>
