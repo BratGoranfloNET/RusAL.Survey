@@ -22,6 +22,8 @@ namespace RusAL.Survey.Commands.Concrete
         /// </summary>
         public ICommandService Service { get; set; }
 
+        public bool IsInnerCommand { get; set; }
+
 
     }
 }

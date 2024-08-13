@@ -1,12 +1,11 @@
-﻿
-using RusAL.Survey.Models;
+﻿using RusAL.Survey.Models;
 
 namespace RusAL.Survey.Helpers
 {
     public static class SurveyHelper
     {      
         // в случае нахождения внутренней  команды возвращаем номер вопроса
-        public static int ChechInnerCommands(string command, int currQuestion)
+        public static int CheckInnerCommands(string command, int currQuestion, SurveyItem survey)
         {
             var innerCommand1 = "-goto_question";
             var innerCommand2 = "-goto_prev_question";
@@ -19,8 +18,24 @@ namespace RusAL.Survey.Helpers
 
             if (command.Trim().Contains(innerCommand1))
             {
-                var nextCommand = command.Replace(innerCommand1, "");
-                return Convert.ToInt32(nextCommand.Trim()); 
+                try
+                {
+                    var args = command.Split(' ');
+                    if (args.Length == 1)
+                    {
+                        return -1;
+                    }
+                    else if(args.Length == 2)
+                    {
+                        var nextCommand = args[1];
+                        return Convert.ToInt32(nextCommand.Trim());
+                    }
+
+                }
+                catch 
+                {
+                    return -1;
+                }
             }
 
             if (command.Trim().Contains(innerCommand2))
@@ -28,9 +43,9 @@ namespace RusAL.Survey.Helpers
                 return currQuestion -= 1;
             }
 
-
             if (command.Trim().Contains(innerCommand3))
             {
+                //survey = null;
                 return 0;
             }
 
@@ -42,11 +57,11 @@ namespace RusAL.Survey.Helpers
         {
             var qustions = new string[]
             {
-                "Введите ФИО",
-                "Введите Дату рождения (ДД.ММ.ГГГГ)",
-                "Любимый язык программирования (только указанные варианты: PHP, JavaScript, C, C++, Java, C#, Python, Ruby)",
-                "Введите опыт программирования на указанном языке (Полных лет)",
-                "Введите Мобильный телефон",
+                "Введите ФИО >",
+                "Введите Дату рождения (ДД.ММ.ГГГГ) >",
+                "Любимый язык программирования (только указанные варианты: PHP, JavaScript, C, C++, Java, C#, Python, Ruby) >",
+                "Введите опыт программирования на указанном языке (Полных лет) >",
+                "Введите Мобильный телефон >",
             };
 
             return qustions;

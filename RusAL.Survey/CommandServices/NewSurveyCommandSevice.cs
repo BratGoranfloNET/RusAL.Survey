@@ -33,8 +33,8 @@ namespace RusAL.Survey.CommandServices
             hasErrors = false;
             var exit = false;
             
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Заполните анкету!");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("ЗАПОЛНИТЕ АНКЕТУ !");
 
             var qustions = SurveyHelper.GetQustions();            
 

@@ -14,9 +14,10 @@ namespace RusAL.Survey.SurveyStrategy
             {
                 try
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine(question);
-                    var dateString = Console.ReadLine();
-                    checkInnerCommand = SurveyHelper.ChechInnerCommands(dateString, i);
+                    var strValue = Console.ReadLine();
+                    checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
                     if (checkInnerCommand >= 0)
                     {
                         survey.NextQuestion = checkInnerCommand;
@@ -24,7 +25,7 @@ namespace RusAL.Survey.SurveyStrategy
                         break;
                     }
                     var format = "dd.MM.yyyy";
-                    DateTime date = DateTime.ParseExact(dateString, format,
+                    DateTime date = DateTime.ParseExact(strValue, format,
                     System.Globalization.CultureInfo.InvariantCulture);
                     survey.BirthDate = date;
                     break;

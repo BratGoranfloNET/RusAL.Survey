@@ -11,5 +11,12 @@ namespace RusAL.Survey.Services.Abstract
          public SurveyItemDto GetSurveyByFileName(string fileName);
 
          public void DeleteSurveyByFileName(string fileName, out bool hasErrors);
+
+         public string[] GetFileList();
+
+         public string[] GetFileListToday();
+
+         public void ZipSurvey(string sourceFileName, string targetPath, out bool hasErrors);
+
     }
 }

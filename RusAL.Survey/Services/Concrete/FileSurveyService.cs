@@ -1,5 +1,7 @@
 ﻿using RusAL.Survey.Models;
 using RusAL.Survey.Services.Abstract;
+using System.Diagnostics;
+using System.IO.Compression;
 using System.Text;
 
 namespace RusAL.Survey.Services.Concrete
@@ -21,8 +23,7 @@ namespace RusAL.Survey.Services.Concrete
                 
 
         public IEnumerable<SurveyItemDto> GetSurveys()
-        {
-            
+        {            
             var pathLoc = Path.GetDirectoryName(_location);
             var fullDir = Path.Combine(pathLoc, _directory);
 
@@ -86,8 +87,8 @@ namespace RusAL.Survey.Services.Concrete
 
             try 
             {
-                var pathLoc = Path.GetDirectoryName(_location);
-                var fullDir = Path.Combine(pathLoc, _directory);
+                var pathLoc  = Path.GetDirectoryName(_location);
+                var fullDir  = Path.Combine(pathLoc, _directory);
                 var fullPath = Path.Combine(fullDir, fileName);
 
                 dto = GetSurveyDtoFromFile(fullPath);
@@ -161,6 +162,75 @@ namespace RusAL.Survey.Services.Concrete
                 hasErrors = true;
                 var message = ex.Message;
                 Console.WriteLine($"Ошибка при удалении файла  {message}");
+            }
+        }
+
+        public string[] GetFileList()
+        {
+            var pathLoc = Path.GetDirectoryName(_location);
+            var fullDir = Path.Combine(pathLoc, _directory);
+
+            string[] files = Directory.GetFiles(fullDir);
+
+            int i = 0;
+            foreach (var file in files)
+            {
+                files[i] = file.Replace(fullDir, "").Replace("\\", "");
+                i++;               
+            }
+
+            return files;
+        }
+
+        public string[] GetFileListToday()
+        {
+            var pathLoc = Path.GetDirectoryName(_location);
+            var fullDir = Path.Combine(pathLoc, _directory);
+
+            string[] files = Directory.GetFiles(fullDir);
+
+            var fileList = new List<string>();
+            foreach (var file in files)
+            {
+                DateTime fileCreatedDate = File.GetCreationTime(file);
+                
+                if (fileCreatedDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+                {
+                    fileList.Add(file.Replace(fullDir, "").Replace("\\", ""));
+                }
+            }
+
+            return fileList.ToArray();
+
+        }
+
+        public void ZipSurvey(string sourceFileName, string targetPath, out bool hasErrors)
+        {
+            hasErrors = false;
+
+            try
+            {
+                var pathLoc = Path.GetDirectoryName(_location);
+                var fullDir = Path.Combine(pathLoc, _directory);
+                var fullPath = Path.Combine(fullDir, sourceFileName);
+
+                bool exists = Directory.Exists(Path.Combine(targetPath));
+                if (!exists)
+                    Directory.CreateDirectory(Path.Combine(targetPath));
+
+                var zipfileName = sourceFileName.Replace(".txt", ".zip");
+                var zipPath = Path.Combine(targetPath, zipfileName);
+                
+                using FileStream sourceStream = new FileStream(fullPath, FileMode.OpenOrCreate);
+                using FileStream targetStream = File.Create(zipPath);
+                using GZipStream compressionStream = new GZipStream(targetStream, CompressionMode.Compress);
+                sourceStream.CopyTo(compressionStream); 
+
+            }
+            catch (Exception ex)
+            {
+                hasErrors = true;
+                Console.WriteLine($"Ошибка при архивировании файла {ex.Message}");
             }
         }
     }

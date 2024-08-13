@@ -10,15 +10,16 @@ namespace RusAL.Survey.SurveyStrategy
             int checkInnerCommand = 0;
             bool exitFlag = false;
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(question);
-            var experience = Console.ReadLine();
-            checkInnerCommand = SurveyHelper.ChechInnerCommands(experience, i);
+            var strValue = Console.ReadLine();
+            checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
             if (checkInnerCommand >= 0)
             {
                 survey.NextQuestion = checkInnerCommand;
                 exitFlag = true;
             }
-            survey.Experience = Convert.ToInt32(experience);
+            survey.Experience = Convert.ToInt32(strValue);
             return exitFlag;
         }
     }

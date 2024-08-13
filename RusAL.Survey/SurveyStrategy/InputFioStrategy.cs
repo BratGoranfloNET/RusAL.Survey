@@ -10,9 +10,10 @@ namespace RusAL.Survey.SurveyStrategy
             int checkInnerCommand = 0;
             bool exitFlag = false;
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(question);
             var strValue = Console.ReadLine();
-            checkInnerCommand = SurveyHelper.ChechInnerCommands(strValue, i);
+            checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
             if (checkInnerCommand >= 0)
             {
                 survey.NextQuestion = checkInnerCommand;

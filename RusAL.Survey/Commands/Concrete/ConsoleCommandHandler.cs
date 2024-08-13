@@ -1,7 +1,6 @@
 ﻿using Q101.ConsoleHelper.Abstract;
 using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Models;
-using System.Xml.Schema;
 
 namespace RusAL.Survey.Commands.Concrete
 {
@@ -35,29 +34,59 @@ namespace RusAL.Survey.Commands.Concrete
             _commandProvider = commandProvider;
         }
 
-        public void Run( out bool hasErrors, out bool isExit, SurveyItem survey)
+        public void Run( out bool hasErrors,  SurveyItem survey)
         {
-            hasErrors = false;
-            isExit  = false;
+            hasErrors = false;            
             var commandArg = string.Empty;
             int startQuestion = 0;
 
             var commandText = string.Empty;            
 
-            commandText = _consoleHelper.GetStringFromConsole("Выберите действие:");
-                       
-            var command = _commandProvider.Commands.FirstOrDefault(c => commandText.Contains(c.CommandText));
+            var commandInputText = _consoleHelper.GetStringFromConsole("Выберите действие:");
 
-            if (command != null) 
+            var commandArr = commandInputText.Trim().Split(" ");
+
+            var length = commandArr.Length;
+
+
+            if (commandArr.Length == 1)
             {
-                commandArg = commandText.Replace(command.CommandText, "");
+                commandText = commandArr[0];
             }
-           
+            else if (commandArr.Length == 2)
+            {
+                commandText = commandArr[0];
+                commandArg  = commandArr[1];
+            }
+            else if (commandArr.Length == 3)
+            {
+                commandText = commandArr[0];
+                commandArg  = commandArr[1] + " " + commandArr[2];
+            }
+            else 
+            {
+                var commandErrorMessage = $"Ошибка при вводе команды Команда {commandText} ";
+                hasErrors = true;
+                _consoleHelper.WriteMessageWithTimeStamp(commandErrorMessage, ConsoleColor.Red);
+            }
+
+            var command = _commandProvider.Commands.FirstOrDefault(c => c.CommandText == commandText && !c.IsInnerCommand);
+
+                       
             if (command != null)
             {
+                if (commandText == "-help") 
+                {                   
+                    Console.WriteLine("Список доступных команд: ");
+                    foreach (var cmd in _commandProvider.Commands)
+                    {
+                        Console.WriteLine($"{cmd.CommandText}. {cmd.Title}", ConsoleColor.DarkYellow);                          
+                    }
+                }
+
                 command.Service.Start(out hasErrors, survey, startQuestion, commandArg);
                 // перезапускаем внутренние команды
-                if (survey.NextQuestion > 0)
+                if (survey.NextQuestion > 0 & survey != null)
                 {
                     command.Service.Start(out hasErrors, survey, survey.NextQuestion);
                 }
@@ -65,17 +94,7 @@ namespace RusAL.Survey.Commands.Concrete
             }
             else 
             {
-                var commandErrorMessage = string.Empty;
-
-                if (commandText == "-exit")
-                {
-                    isExit = true;
-                }
-                else 
-                {
-                   commandErrorMessage = $"Команда {commandText} не найдена";
-                }
-                             
+                var commandErrorMessage = $"Команда {commandText} не найдена";                             
 
                 hasErrors = true;
 

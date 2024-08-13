@@ -12,29 +12,30 @@ namespace RusAL.Survey.SurveyStrategy
 
             while (true)
             {
-                try
+                
+                var lang = new string[] { "PHP", "JavaScript", "C", "C++", "Java", "C#", "Python", "Ruby" };
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(question);
+                var strValue = Console.ReadLine();
+                if (lang.Contains(strValue.Trim()))
                 {
-                    var lang = new string[] { "PHP", "JavaScript", "C", "C++", "Java", "C#", "Python", "Ruby" };
-                    Console.WriteLine(question);
-                    var langString = Console.ReadLine();
-                    if (lang.Contains(langString.Trim()))
-                    {
-                        survey.Language = langString;
-                        break;
-                    }
-                    checkInnerCommand = SurveyHelper.ChechInnerCommands(langString, i);
-                    if (checkInnerCommand >= 0)
-                    {
-                        survey.NextQuestion = checkInnerCommand;
-                        exitFlag = true;
-                        break;
-                    }
+                    survey.Language = strValue;
+                    break;
                 }
-                catch
+                else 
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Ошибка ввода языка программирования");
                 }
+
+                checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
+                if (checkInnerCommand >= 0)
+                {
+                    survey.NextQuestion = checkInnerCommand;
+                    exitFlag = true;
+                    break;
+                }
+                
             }
 
             return exitFlag;

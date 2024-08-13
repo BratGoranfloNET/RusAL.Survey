@@ -28,18 +28,14 @@ namespace RusAL.Survey
 
         public void Run()
         {
-
-            bool hasErrors = false;
-            bool isExit   = false;           
+            bool hasErrors = false;                      
             var currSurvey = new SurveyItem();
 
             try
             {
                 while (true)
                 {
-                    _consoleCommandHandler.Run(out hasErrors, out isExit, currSurvey);
-
-                    if (isExit) break;
+                    _consoleCommandHandler.Run(out hasErrors, currSurvey);                   
                 }
             }
             catch (Exception exc)
