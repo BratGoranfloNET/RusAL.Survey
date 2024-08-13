@@ -30,7 +30,7 @@ namespace RusAL.Survey.Helpers
                         survey.InnerCommand = true;
                         var nextCommandStr = args[1];
                         var nextCommand = Convert.ToInt32(nextCommandStr.Trim());
-                        return nextCommand;
+                        return nextCommand -1;
                     }
 
                 }
