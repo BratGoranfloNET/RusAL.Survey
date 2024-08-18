@@ -20,14 +20,24 @@ namespace RusAL.Survey.CommandServices
 
         public override void StartCommon(string commandArg)
         {
-            var files = _fileService.GetFileListToday();
+            var hasErrors = false;
 
-            Console.WriteLine("Список файлов анкет сохраненных сегодня:");
-            
-            foreach (var file in files)
+            var files = _fileService.GetFileListToday(out hasErrors);
+
+            if (!hasErrors)
             {
-                Console.WriteLine(file);
+                Console.WriteLine("Список файлов анкет сохраненных сегодня:");
+
+                foreach (var file in files)
+                {
+                    Console.WriteLine(file);
+                }
             }
+            else
+            {
+                Console.WriteLine("Ошибка при получении списка анкет!");
+            }
+            
         }
     }
 }

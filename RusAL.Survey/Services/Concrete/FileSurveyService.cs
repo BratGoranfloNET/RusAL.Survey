@@ -165,43 +165,63 @@ namespace RusAL.Survey.Services.Concrete
             }
         }
 
-        public string[] GetFileList()
+        public string[] GetFileList(out bool hasErrors)
         {
+            hasErrors = false;
+
             var pathLoc = Path.GetDirectoryName(_location);
             var fullDir = Path.Combine(pathLoc, _directory);
 
-            string[] files = Directory.GetFiles(fullDir);
-
-            int i = 0;
-            foreach (var file in files)
+            try
             {
-                files[i] = file.Replace(fullDir, "").Replace("\\", "");
-                i++;               
-            }
+                string[] files = Directory.GetFiles(fullDir);
+                int i = 0;
+                foreach (var file in files)
+                {
+                    files[i] = file.Replace(fullDir, "").Replace("\\", "");
+                    i++;
+                }
 
-            return files;
+                return files;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                hasErrors = true;
+                return new string[0];
+            }      
         }
 
-        public string[] GetFileListToday()
+        public string[] GetFileListToday(out bool hasErrors)
         {
+            hasErrors = false;
+
             var pathLoc = Path.GetDirectoryName(_location);
             var fullDir = Path.Combine(pathLoc, _directory);
 
-            string[] files = Directory.GetFiles(fullDir);
-
-            var fileList = new List<string>();
-            foreach (var file in files)
+            try
             {
-                DateTime fileCreatedDate = File.GetCreationTime(file);
-                
-                if (fileCreatedDate.Date == DateTime.Now.Date)
+                string[] files = Directory.GetFiles(fullDir);
+
+                var fileList = new List<string>();
+                foreach (var file in files)
                 {
-                    fileList.Add(file.Replace(fullDir, "").Replace("\\", ""));
+                    DateTime fileCreatedDate = File.GetCreationTime(file);
+
+                    if (fileCreatedDate.Date == DateTime.Now.Date)
+                    {
+                        fileList.Add(file.Replace(fullDir, "").Replace("\\", ""));
+                    }
                 }
+
+                return fileList.ToArray();
             }
-
-            return fileList.ToArray();
-
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                hasErrors = true;
+                return new string[0];
+            }
         }
 
         public void ZipSurvey(string sourceFileName, string targetPath, out bool hasErrors)

@@ -12,9 +12,9 @@ namespace RusAL.Survey.Services.Abstract
 
          public void DeleteSurveyByFileName(string fileName, out bool hasErrors);
 
-         public string[] GetFileList();
+         public string[] GetFileList(out bool hasErrors);
 
-         public string[] GetFileListToday();
+         public string[] GetFileListToday(out bool hasErrors);
 
          public void ZipSurvey(string sourceFileName, string targetPath, out bool hasErrors);
 
