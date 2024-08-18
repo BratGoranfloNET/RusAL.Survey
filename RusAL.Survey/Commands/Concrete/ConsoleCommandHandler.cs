@@ -79,6 +79,7 @@ namespace RusAL.Survey.Commands.Concrete
                         command.Service.Start(survey, commandArg, command.IsSurveyCommand);
                         if(!survey.InnerCommand)
                         {
+                            survey.StartQuestion = 0;
                             break;
                         }
                     }
