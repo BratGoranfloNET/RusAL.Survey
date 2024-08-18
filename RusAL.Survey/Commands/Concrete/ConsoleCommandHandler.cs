@@ -24,8 +24,7 @@ namespace RusAL.Survey.Commands.Concrete
         public void Run( out bool hasErrors,  SurveyItem survey)
         {
             hasErrors = false;            
-            var commandArg = string.Empty;
-            int startQuestion = 0;
+            var commandArg = string.Empty;           
 
             var commandText = string.Empty;
 
