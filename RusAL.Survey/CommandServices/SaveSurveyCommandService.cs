@@ -29,7 +29,7 @@ namespace RusAL.Survey.CommandServices
             }
             else
             {
-                _fileService.SaveSurvayFile(survey, out hasErrors);
+                _fileService.SaveSurveyFile(survey, out hasErrors);
 
                 if (!hasErrors)
                 {

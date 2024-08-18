@@ -4,7 +4,7 @@ namespace RusAL.Survey.Services.Abstract
 {
     public  interface IFileSurveyService
     {
-         public void SaveSurvayFile(SurveyItem survey, out bool hasErrors);
+         public void SaveSurveyFile(SurveyItem survey, out bool hasErrors);
 
          public IEnumerable<SurveyItemDto> GetSurveys();
 

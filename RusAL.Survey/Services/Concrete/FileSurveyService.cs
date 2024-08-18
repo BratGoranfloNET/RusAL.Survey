@@ -41,7 +41,7 @@ namespace RusAL.Survey.Services.Concrete
             return dtoList;
         }
 
-        public void SaveSurvayFile(SurveyItem survey, out bool hasErrors)
+        public void SaveSurveyFile(SurveyItem survey, out bool hasErrors)
         {
             hasErrors = false;
 

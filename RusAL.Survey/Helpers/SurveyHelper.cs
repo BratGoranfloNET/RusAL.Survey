@@ -58,7 +58,7 @@ namespace RusAL.Survey.Helpers
 
         public static string[] GetQustions()
         {
-            var qustions = new string[]
+            var questions = new string[]
             {
                 "Введите ФИО >",
                 "Введите Дату рождения (ДД.ММ.ГГГГ) >",
@@ -67,7 +67,7 @@ namespace RusAL.Survey.Helpers
                 "Введите Мобильный телефон >",
             };
 
-            return qustions;
+            return questions;
 
         }
 
