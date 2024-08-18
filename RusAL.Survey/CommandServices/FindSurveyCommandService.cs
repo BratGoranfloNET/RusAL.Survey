@@ -19,9 +19,9 @@ namespace RusAL.Survey.CommandServices
         }
 
         public override void StartCommon(string commandArg)
-        {
-            var hasErrors = false;
+        {           
             var dto = _fileService.GetSurveyByFileName(commandArg.Trim());
+
             Console.WriteLine($"1. ФИО: {dto.FIO}");
             Console.WriteLine($"2. Дата рождения: {dto.BirthDate}");
             Console.WriteLine($"3. Любимый язык программирования: {dto.Language}");
