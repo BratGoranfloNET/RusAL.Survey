@@ -33,11 +33,11 @@ namespace RusAL.Survey.CommandServices
             
             survey.InnerCommand = false;
 
-            var qustions = SurveyHelper.GetQustions();            
+            var questions = SurveyHelper.GetQustions();            
             
             InputContext inputContext;
 
-            for (int i = survey.StartQuestion; i < qustions.Length; i++)
+            for (int i = survey.StartQuestion; i < questions.Length; i++)
             {
                 if (exit) break;              
 
@@ -45,35 +45,35 @@ namespace RusAL.Survey.CommandServices
                     case 0:
                         // ФИО                        
                         inputContext = new InputContext(new InputFioStrategy());
-                        exit = inputContext.Input(i, qustions[i], survey);
+                        exit = inputContext.Input(i, questions[i], survey);
                         if (exit) continue;                                               
                         break;
 
                     case 1:
                         // Дата рождения
                         inputContext = new InputContext(new InputDateStrategy());
-                        exit = inputContext.Input(i, qustions[i], survey);
+                        exit = inputContext.Input(i, questions[i], survey);
                         if (exit) continue;
                         break;
 
                     case 2:
                         // ЯП
                         inputContext = new InputContext(new InputLangStrategy());
-                        exit = inputContext.Input(i, qustions[i], survey);
+                        exit = inputContext.Input(i, questions[i], survey);
                         if (exit) continue;
                         break;
                         
                     case 3:
                         // Опыт
                         inputContext = new InputContext(new InputExpStrategy());
-                        exit = inputContext.Input(i, qustions[i], survey);
+                        exit = inputContext.Input(i, questions[i], survey);
                         if (exit) continue;
                         break;
 
                      case 4:
                         // Телефон
                         inputContext = new InputContext(new InputPhoneStrategy());
-                        exit = inputContext.Input(i, qustions[i], survey);
+                        exit = inputContext.Input(i, questions[i], survey);
                         if (exit) continue;                        
                         break;
                 }
