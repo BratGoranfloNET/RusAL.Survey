@@ -39,6 +39,5 @@ namespace RusAL.Survey.Extensions
             return services;
 
         }
-
     }
 }

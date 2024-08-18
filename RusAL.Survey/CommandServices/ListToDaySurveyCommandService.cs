@@ -1,5 +1,4 @@
 ﻿using RusAL.Survey.Commands.Abstract;
-using RusAL.Survey.Models;
 using RusAL.Survey.Services.Abstract;
 
 namespace RusAL.Survey.CommandServices
@@ -7,21 +6,21 @@ namespace RusAL.Survey.CommandServices
     /// <summary>
     /// Получить список  анкет сохраненных сегодня
     /// </summary>
-    public class ListToDaySurveyCommandSevice : ICommandService
+    public class ListToDaySurveyCommandService : CommandService
     {   
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public ListToDaySurveyCommandSevice(IFileSurveyService fileService)
+        public ListToDaySurveyCommandService(IFileSurveyService fileService)
         {
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
+        public override void StartCommon(string commandArg)
         {
-            hasErrors = false;
+            var hasErrors = false;
 
             var files = _fileService.GetFileListToday();
 

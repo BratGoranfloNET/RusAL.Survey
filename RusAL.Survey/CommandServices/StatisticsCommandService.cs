@@ -6,23 +6,23 @@ using RusAL.Survey.Services.Abstract;
 namespace RusAL.Survey.CommandServices
 {
     /// <summary>
-    /// Статистика
+    /// Статистика по анкетам
     /// </summary>
-    public class StatisticsCommandSevice : ICommandService
+    public class StatisticsCommandService : CommandService
     {        
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public StatisticsCommandSevice(IFileSurveyService fileService)
+        public StatisticsCommandService(IFileSurveyService fileService)
         {            
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
+        public override void StartCommon(string commandArg)
         {
-            hasErrors = false;
+           var hasErrors = false;
 
             var dtoList =  _fileService.GetSurveys();
 

@@ -19,7 +19,6 @@ namespace RusAL.Survey.SurveyStrategy
                     Console.WriteLine("Ошибка ввода опыта");
                 }
             }
-
         }
     }
 }

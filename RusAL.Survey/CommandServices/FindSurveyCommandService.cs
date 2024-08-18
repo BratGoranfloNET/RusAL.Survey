@@ -1,27 +1,26 @@
 ﻿using RusAL.Survey.Commands.Abstract;
-using RusAL.Survey.Models;
 using RusAL.Survey.Services.Abstract;
 
 namespace RusAL.Survey.CommandServices
 {
     /// <summary>
-    /// Сохранит анкету в файл
+    /// Найти анкету и вывести 
     /// </summary>
-    public class FindSurveyCommandSevice : ICommandService
+    public class FindSurveyCommandService : CommandService
     {
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public FindSurveyCommandSevice(IFileSurveyService fileService)
+        public FindSurveyCommandService(IFileSurveyService fileService)
         {            
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
+        public override void StartCommon(string commandArg)
         {
-            hasErrors = false;
+            var hasErrors = false;
             var dto = _fileService.GetSurveyByFileName(commandArg.Trim());
             Console.WriteLine($"1. ФИО: {dto.FIO}");
             Console.WriteLine($"2. Дата рождения: {dto.BirthDate}");

@@ -72,13 +72,14 @@ namespace RusAL.Survey.Commands.Concrete
                     }
                 }
 
-                command.Service.Start(out hasErrors, survey, startQuestion, commandArg);
+              command.Service.Start(true, survey, commandArg) ;
 
                 // Перезапускаем внутренние команды анкеты 
                 if (survey.NextQuestion >= 0 && survey.InnerCommand)
                 {
-                    command.Service.Start(out hasErrors, survey, survey.NextQuestion);
-                }                
+                   command.Service.Start(true, survey, "");
+                }    
+                
             }
             else 
             {

@@ -28,6 +28,12 @@
         public string Phone { get; set; }
 
         /// <summary>
+        ///Стартовый вопрос следующего вопроса
+        /// </summary>
+        public int StartQuestion { get; set; }
+
+
+        /// <summary>
         ///Номер следующего вопроса
         /// </summary>
         public int NextQuestion { get; set; }

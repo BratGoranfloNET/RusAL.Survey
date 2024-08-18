@@ -7,21 +7,21 @@ namespace RusAL.Survey.CommandServices
     /// <summary>
     /// Сохранит анкету в файл
     /// </summary>
-    public class SaveSurveyCommandSevice : ICommandService
+    public class SaveSurveyCommandService : CommandService
     {
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public SaveSurveyCommandSevice(IFileSurveyService fileService)
+        public SaveSurveyCommandService(IFileSurveyService fileService)
         {           
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
+        public override void StartSurvey(SurveyItem survey, string commandArg)
         {
-             hasErrors = false;
+             var hasErrors = false;
             _fileService.SaveSurvayFile(survey, out hasErrors);
 
             if (!hasErrors)

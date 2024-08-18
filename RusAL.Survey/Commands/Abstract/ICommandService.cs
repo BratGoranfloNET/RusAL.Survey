@@ -4,13 +4,14 @@ namespace RusAL.Survey.Commands.Abstract
 {
     /// <summary>
     /// Интерфейс сервиса команды.
-    /// </summary>
+    /// </summary>    
+
     public interface ICommandService
     {
         /// <summary>
         /// Запуск команды.
-        /// </summary>
-        /// <param name="hasErrors">Наличие некритичных ошибок при выполнении.</param>
-        void Start(out bool hasErrors, SurveyItem survey, int startQuestion = 0, string commandArg = "");
+        /// </summary>        
+        void Start(bool isSurvey, SurveyItem survey, string commandArg);
     }
+
 }

@@ -9,21 +9,20 @@ namespace RusAL.Survey.CommandServices
     /// <summary>
     /// Заполнить новую анкету
     /// </summary>
-    public class NewSurveyCommandSevice : ICommandService
+    public class NewSurveyCommandService : CommandService
     {       
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public NewSurveyCommandSevice(IFileSurveyService fileService)
+        public NewSurveyCommandService(IFileSurveyService fileService)
         {           
             _fileService = fileService;
         }
 
-        public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
-        {
-            hasErrors = false;
+        public override void StartSurvey(SurveyItem survey,  string commandArg)
+        {           
             var exit = false;
 
             if (!survey.InnerCommand)
@@ -38,7 +37,7 @@ namespace RusAL.Survey.CommandServices
             
             InputContext inputContext;
 
-            for (int i = startQuestion; i < qustions.Length; i++)
+            for (int i = survey.StartQuestion; i < qustions.Length; i++)
             {
                 if (exit) break;              
 

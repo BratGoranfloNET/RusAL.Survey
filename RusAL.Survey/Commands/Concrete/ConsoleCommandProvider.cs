@@ -12,16 +12,16 @@ namespace RusAL.Survey.Commands.Concrete
         public IList<ConsoleCommand> Commands { get; }
 
         public ConsoleCommandProvider(
-                    NewSurveyCommandSevice newSurvey,
-                    SaveSurveyCommandSevice saveSurvey,
-                    StatisticsCommandSevice statistics,
-                    FindSurveyCommandSevice findSurvey,
-                    DeleteSurveyCommandSevice deleteSurvey,
-                    ListSurveyCommandSevice listSurvey,
-                    ListToDaySurveyCommandSevice listTodaySurvey,
-                    ZipSurveyCommandSevice zipSurvey,
-                    ExitSurveyCommandSevice exit,
-                    HelpSurveyCommandSevice help
+                    NewSurveyCommandService newSurvey,
+                    SaveSurveyCommandService saveSurvey,
+                    StatisticsCommandService statistics,
+                    FindSurveyCommandService findSurvey,
+                    DeleteSurveyCommandService deleteSurvey,
+                    ListSurveyCommandService listSurvey,
+                    ListToDaySurveyCommandService listTodaySurvey,
+                    ZipSurveyCommandService zipSurvey,
+                    ExitSurveyCommandService exit,
+                    HelpSurveyCommandService help
                     )
         {
             Commands = new List<ConsoleCommand>(15)
@@ -39,7 +39,6 @@ namespace RusAL.Survey.Commands.Concrete
                 Create("-zip", "Запаковать указанную анкету", zipSurvey, false),
                 Create("-exit", "Выйти из приложения", exit, false),
                 Create("-help", "Показать список доступных команд", help, false)
-
             };
 
         }
@@ -50,7 +49,7 @@ namespace RusAL.Survey.Commands.Concrete
         /// <param name="commandText">Текст команды.</param>
         /// <param name="title">Название.</param>
         /// <param name="service">Сервис команды.</param>
-        private ConsoleCommand Create(string commandText, string title, ICommandService service, bool inner)
+        private ConsoleCommand Create(string commandText, string title, CommandService service, bool inner)
         {
             var command = new ConsoleCommand
             {

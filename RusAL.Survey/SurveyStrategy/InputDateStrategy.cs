@@ -21,8 +21,7 @@ namespace RusAL.Survey.SurveyStrategy
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Ошибка ввода Даты");
                 }
-            }   
-            
+            }            
         }        
     }
 }
