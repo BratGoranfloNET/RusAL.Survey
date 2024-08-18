@@ -28,7 +28,6 @@ namespace RusAL.Survey.CommandServices
             {
                 Console.WriteLine("Файл удалён!");
             }
-
         }
     }
 }

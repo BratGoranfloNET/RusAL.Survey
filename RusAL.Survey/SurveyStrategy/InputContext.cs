@@ -24,6 +24,11 @@ namespace RusAL.Survey.SurveyStrategy
                 Console.ForegroundColor = ConsoleColor.Yellow;
 
                 strValue = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(strValue))
+                {
+                    continue;
+                }
+
                 checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
 
                 if (checkInnerCommand >= 0)

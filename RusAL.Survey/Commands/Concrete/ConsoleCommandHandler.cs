@@ -28,10 +28,11 @@ namespace RusAL.Survey.Commands.Concrete
 
             var commandText = string.Empty;
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Выберите действие:");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             var commandInputText = Console.ReadLine();
-            
+
             var commandArr = commandInputText?.Trim().Split(" ");
 
             var length = commandArr?.Length;

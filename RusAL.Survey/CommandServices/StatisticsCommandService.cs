@@ -22,14 +22,12 @@ namespace RusAL.Survey.CommandServices
 
         public override void StartCommon(string commandArg)
         {
-           var hasErrors = false;
-
             var dtoList =  _fileService.GetSurveys();
 
             var surList = new List<SurveyItem>();
             DateTime now = DateTime.Today;
             var ageSum = 0;
-            //замаппим dto
+            //Замаппим dto
             foreach (var dto in dtoList)
             {
                 var sur = SurveyHelper.MapSurvey(dto);

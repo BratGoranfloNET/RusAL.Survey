@@ -34,6 +34,5 @@ namespace RusAL.Survey.CommandServices
             }
 
         }
-
     }
 }

@@ -30,6 +30,5 @@ namespace RusAL.Survey.CommandServices
             Console.WriteLine($"Анкета заполнена: {dto.Created}");
 
         }
-
     }
 }
