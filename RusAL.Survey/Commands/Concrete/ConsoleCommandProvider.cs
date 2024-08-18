@@ -26,19 +26,19 @@ namespace RusAL.Survey.Commands.Concrete
         {
             Commands = new List<ConsoleCommand>(15)
             {
-                Create("-1", "Заполнение анкеты", newSurvey, false),
-                Create("-save", "Сохранение анкеты", saveSurvey, false),
-                Create("-statistics", "Статистика заполненных анкет", statistics, false),
-                Create("-goto_question", "Вернуться к указанному вопросу", null, true),
-                Create("-goto_prev_question", "Вернуться к предыдущему вопросу", null, true),
-                Create("-restart_profile", "Заполнить анкету заново", null, true),
-                Create("-find", "Найти анкету и показать данные анкеты", findSurvey, false),
-                Create("-delete", "Удалить указанную анкету", deleteSurvey, false),
-                Create("-list", "Показать список названий файлов всех сохранённых анкет", listSurvey, false),
-                Create("-list_today", "Показать список названий файлов сохранённых анкет сегодня", listTodaySurvey, false),
-                Create("-zip", "Запаковать указанную анкету", zipSurvey, false),
-                Create("-exit", "Выйти из приложения", exit, false),
-                Create("-help", "Показать список доступных команд", help, false)
+                Create("-1", "Заполнение анкеты", newSurvey, true, false),
+                Create("-save", "Сохранение анкеты", saveSurvey, true, false),
+                Create("-statistics", "Статистика заполненных анкет", statistics, false, false),
+                Create("-goto_question", "Вернуться к указанному вопросу", null, true, true),
+                Create("-goto_prev_question", "Вернуться к предыдущему вопросу", null, true, true),
+                Create("-restart_profile", "Заполнить анкету заново", null, true, true),
+                Create("-find", "Найти анкету и показать данные анкеты", findSurvey, false, false),
+                Create("-delete", "Удалить указанную анкету", deleteSurvey, false, false),
+                Create("-list", "Показать список названий файлов всех сохранённых анкет", listSurvey, false, false),
+                Create("-list_today", "Показать список названий файлов сохранённых анкет сегодня", listTodaySurvey, false,false),
+                Create("-zip", "Запаковать указанную анкету", zipSurvey, false, false),
+                Create("-exit", "Выйти из приложения", exit, false, false),
+                Create("-help", "Показать список доступных команд", help, false, false)
             };
 
         }
@@ -49,14 +49,15 @@ namespace RusAL.Survey.Commands.Concrete
         /// <param name="commandText">Текст команды.</param>
         /// <param name="title">Название.</param>
         /// <param name="service">Сервис команды.</param>
-        private ConsoleCommand Create(string commandText, string title, CommandService service, bool inner)
+        private ConsoleCommand Create(string commandText, string title, CommandService service,  bool isSurvey, bool isInner)
         {
             var command = new ConsoleCommand
             {
                 CommandText = commandText,
                 Title = title,
                 Service = service, 
-                IsInnerCommand = inner
+                IsInnerCommand = isInner,
+                IsSurveyCommand = isSurvey
             };
 
             return command;

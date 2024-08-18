@@ -17,6 +17,7 @@ namespace RusAL.Survey.SurveyStrategy
             int checkInnerCommand = 0;
             var strValue = string.Empty;
             var exitResult = false;
+
             while (true)
             {
                 Console.WriteLine(question);

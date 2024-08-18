@@ -24,5 +24,7 @@ namespace RusAL.Survey.Commands.Concrete
 
         public bool IsInnerCommand { get; set; }
 
+        public bool IsSurveyCommand { get; set; }
+
     }
 }

@@ -22,12 +22,21 @@ namespace RusAL.Survey.CommandServices
         public override void StartSurvey(SurveyItem survey, string commandArg)
         {
              var hasErrors = false;
-            _fileService.SaveSurvayFile(survey, out hasErrors);
 
-            if (!hasErrors)
+            if (survey.FIO == null && survey.Experience == 0 && survey.Language == null && survey.Phone == null)
             {
-                Console.WriteLine("Файл успешно сохранён!");
+                Console.WriteLine("Файл НЕ сохранён! Анкета пустая !");
             }
+            else
+            {
+                _fileService.SaveSurvayFile(survey, out hasErrors);
+
+                if (!hasErrors)
+                {
+                    Console.WriteLine("Файл успешно сохранён!");
+                }
+            }            
+
         }
 
     }

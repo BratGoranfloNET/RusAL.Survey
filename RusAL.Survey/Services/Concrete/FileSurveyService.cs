@@ -2,6 +2,7 @@
 using RusAL.Survey.Services.Abstract;
 using System.IO.Compression;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RusAL.Survey.Services.Concrete
 {
@@ -193,7 +194,7 @@ namespace RusAL.Survey.Services.Concrete
             {
                 DateTime fileCreatedDate = File.GetCreationTime(file);
                 
-                if (fileCreatedDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+                if (fileCreatedDate.Date == DateTime.Now.Date)
                 {
                     fileList.Add(file.Replace(fullDir, "").Replace("\\", ""));
                 }
