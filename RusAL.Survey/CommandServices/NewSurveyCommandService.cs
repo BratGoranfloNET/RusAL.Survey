@@ -77,10 +77,7 @@ namespace RusAL.Survey.CommandServices
                         if (exit) continue;                        
                         break;
                 }
-
-            }
-            
+            }            
         }
-
     }
 }

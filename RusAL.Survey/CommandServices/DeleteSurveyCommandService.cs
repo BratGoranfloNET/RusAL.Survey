@@ -21,7 +21,9 @@ namespace RusAL.Survey.CommandServices
         public override void StartCommon(string commandArg)
         {
             var hasErrors = false;
+
             _fileService.DeleteSurveyByFileName(commandArg.Trim(), out hasErrors);
+
             if (!hasErrors)
             {
                 Console.WriteLine("Файл удалён!");
