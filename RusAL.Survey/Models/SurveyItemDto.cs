@@ -8,7 +8,6 @@ namespace RusAL.Survey.Models
         public string Language { get; set; }
         public string Experience { get; set; }
         public string Phone { get; set; }
-
         public string Created { get; set; }
     }
 }

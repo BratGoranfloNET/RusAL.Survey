@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Q101.ConsoleHelper" Version="1.0.1" />
     <PackageReference Include="Q101.ServiceCollectionExtensions" Version="1.0.4" />
   </ItemGroup>
 

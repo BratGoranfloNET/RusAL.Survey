@@ -26,7 +26,7 @@ namespace RusAL.Survey.Commands.Concrete
         {
             Commands = new List<ConsoleCommand>(15)
             {
-                Create("-new_profile", "Заполнение анкеты", newSurvey, false),
+                Create("-1", "Заполнение анкеты", newSurvey, false),
                 Create("-save", "Сохранение анкеты", saveSurvey, false),
                 Create("-statistics", "Статистика заполненных анкет", statistics, false),
                 Create("-goto_question", "Вернуться к указанному вопросу", null, true),
@@ -62,6 +62,5 @@ namespace RusAL.Survey.Commands.Concrete
 
             return command;
         }
-
     }
 }

@@ -1,9 +1,5 @@
-﻿using RusAL.Survey.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RusAL.Survey.Helpers;
+using RusAL.Survey.Models;
 
 namespace RusAL.Survey.SurveyStrategy
 {
@@ -18,7 +14,23 @@ namespace RusAL.Survey.SurveyStrategy
 
         public bool Input(int i, string question, SurveyItem survey)
         {
-           return  strategy.InputAlgorithmInterface(i,  question,  survey);
+            int checkInnerCommand = 0;
+
+            Console.WriteLine(question);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            
+            var strValue = Console.ReadLine();
+            checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
+            
+            if (checkInnerCommand >= 0)
+            {
+                survey.NextQuestion = checkInnerCommand;
+                return true;                
+            }
+
+            strategy.InputAlgorithmInterface(strValue, survey);
+
+            return false;
         }
     }
 }

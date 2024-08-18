@@ -1,16 +1,10 @@
-﻿using Q101.ConsoleHelper.Abstract;
-using RusAL.Survey.Commands.Abstract;
+﻿using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Models;
 
 namespace RusAL.Survey
 {
     public class Startup
-    {       
-        /// <summary>
-        /// Работа с консолью.
-        /// </summary>
-        private readonly IQ101ConsoleHelper _consoleHelper;
-
+    {   
         /// <summary>
         /// Обработчик консольных команд.
         /// </summary>
@@ -19,10 +13,8 @@ namespace RusAL.Survey
         /// <summary>
         /// Стартовая точка приложения.
         /// </summary>
-        public Startup(IQ101ConsoleHelper consoleHelper,
-                       IConsoleCommandHandler consoleCommandHandler)
-        {
-            _consoleHelper = consoleHelper;
+        public Startup(IConsoleCommandHandler consoleCommandHandler)
+        {            
             _consoleCommandHandler = consoleCommandHandler;
         }
 
@@ -40,10 +32,9 @@ namespace RusAL.Survey
             }
             catch (Exception exc)
             {
-                _consoleHelper.WriteMessageWithTimeStamp(
-                    $"Произошла ошибка: {exc.Message}\n{exc.StackTrace}",
-                    ConsoleColor.Red);
-                
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Произошла ошибка: {exc.Message}\n{exc.StackTrace}");
+
                 return;
             }
         }

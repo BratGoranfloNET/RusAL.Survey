@@ -1,5 +1,4 @@
-﻿using Q101.ConsoleHelper.Abstract;
-using RusAL.Survey.Commands.Abstract;
+﻿using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Models;
 using RusAL.Survey.Services.Abstract;
 using RusAL.Survey.Helpers;
@@ -11,20 +10,14 @@ namespace RusAL.Survey.CommandServices
     /// Заполнить новую анкету
     /// </summary>
     public class NewSurveyCommandSevice : ICommandService
-    {
-        /// <summary>
-        /// Работа с консолью.
-        /// </summary>
-        private readonly IQ101ConsoleHelper _consoleHelper;
-
+    {       
         /// <summary>
         /// Работа с файлами
         /// </summary>
         private readonly IFileSurveyService _fileService;
 
-        public NewSurveyCommandSevice(IQ101ConsoleHelper consoleHelper, IFileSurveyService fileService)
-        {
-            _consoleHelper = consoleHelper;
+        public NewSurveyCommandSevice(IFileSurveyService fileService)
+        {           
             _fileService = fileService;
         }
 
@@ -39,7 +32,6 @@ namespace RusAL.Survey.CommandServices
                 Console.WriteLine("ЗАПОЛНИТЕ АНКЕТУ !");
             }
             
-
             survey.InnerCommand = false;
 
             var qustions = SurveyHelper.GetQustions();            
@@ -88,7 +80,6 @@ namespace RusAL.Survey.CommandServices
                 }
 
             }
-
             
         }
 

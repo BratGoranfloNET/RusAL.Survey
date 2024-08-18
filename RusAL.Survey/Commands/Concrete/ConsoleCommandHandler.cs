@@ -1,5 +1,4 @@
-﻿using Q101.ConsoleHelper.Abstract;
-using RusAL.Survey.Commands.Abstract;
+﻿using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Models;
 
 namespace RusAL.Survey.Commands.Concrete
@@ -8,17 +7,7 @@ namespace RusAL.Survey.Commands.Concrete
     /// Обработчик консольных команд.
     /// </summary>
     public class ConsoleCommandHandler : IConsoleCommandHandler
-    {
-        /// <summary>
-        /// Параметры командной строки.
-        /// </summary>
-        //private readonly ICmdArgs _cmdArgs;
-
-        /// <summary>
-        /// Работа с консолью.
-        /// </summary>
-        private readonly IQ101ConsoleHelper _consoleHelper;
-
+    {        
         /// <summary>
         /// Провайдер консольных команд.
         /// </summary>
@@ -27,10 +16,8 @@ namespace RusAL.Survey.Commands.Concrete
         /// <summary>
         /// Обработчик консольных команд.
         /// </summary>
-        public ConsoleCommandHandler(IQ101ConsoleHelper consoleHelper,
-                                     IConsoleCommandProvider commandProvider)
-        {
-            _consoleHelper = consoleHelper;
+        public ConsoleCommandHandler(IConsoleCommandProvider commandProvider)
+        {            
             _commandProvider = commandProvider;
         }
 
@@ -40,25 +27,26 @@ namespace RusAL.Survey.Commands.Concrete
             var commandArg = string.Empty;
             int startQuestion = 0;
 
-            var commandText = string.Empty;            
+            var commandText = string.Empty;
 
-            var commandInputText = _consoleHelper.GetStringFromConsole("Выберите действие:");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Выберите действие:");
+            var commandInputText = Console.ReadLine();
+            
+            var commandArr = commandInputText?.Trim().Split(" ");
 
-            var commandArr = commandInputText.Trim().Split(" ");
+            var length = commandArr?.Length;
 
-            var length = commandArr.Length;
-
-
-            if (commandArr.Length == 1)
+            if (commandArr?.Length == 1)
             {
                 commandText = commandArr[0];
             }
-            else if (commandArr.Length == 2)
+            else if (commandArr?.Length == 2)
             {
                 commandText = commandArr[0];
                 commandArg  = commandArr[1];
             }
-            else if (commandArr.Length == 3)
+            else if (commandArr?.Length == 3)
             {
                 commandText = commandArr[0];
                 commandArg  = commandArr[1] + " " + commandArr[2];
@@ -67,12 +55,12 @@ namespace RusAL.Survey.Commands.Concrete
             {
                 var commandErrorMessage = $"Ошибка при вводе команды Команда {commandText} ";
                 hasErrors = true;
-                _consoleHelper.WriteMessageWithTimeStamp(commandErrorMessage, ConsoleColor.Red);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(commandErrorMessage);                
             }
 
             var command = _commandProvider.Commands.FirstOrDefault(c => c.CommandText == commandText && !c.IsInnerCommand);
-
-                       
+                                   
             if (command != null)
             {
                 if (commandText == "-help") 
@@ -90,8 +78,7 @@ namespace RusAL.Survey.Commands.Concrete
                 if (survey.NextQuestion >= 0 && survey.InnerCommand)
                 {
                     command.Service.Start(out hasErrors, survey, survey.NextQuestion);
-                }
-                
+                }                
             }
             else 
             {
@@ -99,11 +86,10 @@ namespace RusAL.Survey.Commands.Concrete
 
                 hasErrors = true;
 
-                _consoleHelper.WriteMessageWithTimeStamp(commandErrorMessage, ConsoleColor.Red);
-                
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(commandErrorMessage);
+
             }
-
         }
-
     }
 }

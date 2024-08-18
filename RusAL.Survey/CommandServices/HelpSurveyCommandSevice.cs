@@ -11,7 +11,7 @@ namespace RusAL.Survey.CommandServices
 
         public void Start(out bool hasErrors, SurveyItem survey, int startQuestion, string commandArg)
         {
-            hasErrors = false;                      
+            hasErrors = false;                     
 
         }
 

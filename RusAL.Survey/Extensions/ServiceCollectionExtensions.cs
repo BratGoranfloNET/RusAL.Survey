@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Q101.ConsoleHelper.Abstract;
-using Q101.ConsoleHelper.Concrete;
 using RusAL.Survey.Commands.Abstract;
 using RusAL.Survey.Commands.Concrete;
 using RusAL.Survey.Services.Abstract;
@@ -17,9 +15,7 @@ namespace RusAL.Survey.Extensions
         /// Регистрация зависимостей.
         /// </summary>
         public static IServiceCollection RegisterServices(this IServiceCollection services)
-        {
-            // Сервисы.
-            services.AddTransient<IQ101ConsoleHelper, Q101ConsoleHelper>();
+        {            
 
             //Сервисы команд.
             var commandServices = typeof(Program).Assembly
