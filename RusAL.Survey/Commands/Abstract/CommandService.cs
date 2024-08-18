@@ -4,7 +4,7 @@ namespace RusAL.Survey.Commands.Abstract
 {
     public class CommandService : ICommandService
     {
-        public void Start( SurveyItem survey, string commandArg, bool isSurvey)
+        public void Start(SurveyItem survey, string commandArg, bool isSurvey)
         {
             if (isSurvey)
             {

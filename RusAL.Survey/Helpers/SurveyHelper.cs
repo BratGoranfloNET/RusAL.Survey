@@ -9,10 +9,11 @@ namespace RusAL.Survey.Helpers
         {
             var innerCommand1 = "-goto_question";
             var innerCommand2 = "-goto_prev_question";
-            var innerCommand3 = "-restart_profile";            
-
+            var innerCommand3 = "-restart_profile";
+            
             if (string.IsNullOrEmpty(command))
             {
+                
                 return -1;
             }
 
@@ -48,7 +49,13 @@ namespace RusAL.Survey.Helpers
 
             if (command.Trim().Contains(innerCommand3))
             {
+                survey.FIO = string.Empty;
+                survey.BirthDate = DateTime.MinValue;
+                survey.Language = string.Empty;
+                survey.Experience = 0;
+                survey.Phone = string.Empty;
                 survey.InnerCommand = true;
+                survey.NextQuestion = 0;
                 return 0;
             }
 

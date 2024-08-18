@@ -73,9 +73,15 @@ namespace RusAL.Survey.Commands.Concrete
                 // Перезапускаем внутренние команды анкеты 
                 if (survey.NextQuestion >= 0 && survey.InnerCommand)
                 {
-                   command.Service.Start(survey, commandArg, command.IsSurveyCommand);
-                }    
-                
+                    while (true)
+                    {
+                        command.Service.Start(survey, commandArg, command.IsSurveyCommand);
+                        if(!survey.InnerCommand)
+                        {
+                            break;
+                        }
+                    }
+                }                
             }
             else 
             {

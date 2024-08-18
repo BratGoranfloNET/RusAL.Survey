@@ -8,9 +8,21 @@ namespace RusAL.Survey.SurveyStrategy
         {
             var inputError = false;
 
-            survey.FIO = strValue;
-                        
-            return inputError;
+            if(!string.IsNullOrWhiteSpace(strValue))
+            {
+                survey.FIO = strValue;
+                inputError = false;
+                return inputError;
+
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ошибка ввода ФИО");
+                inputError = true;
+                return inputError;
+            }
+
         }
     }
 }
