@@ -11,7 +11,7 @@ namespace RusAL.Survey.Commands.Abstract
         /// <summary>
         /// Запуск команды.
         /// </summary>        
-        void Start(bool isSurvey, SurveyItem survey, string commandArg);
+        void Start(SurveyItem survey, string commandArg, bool isSurvey );
     }
 
 }

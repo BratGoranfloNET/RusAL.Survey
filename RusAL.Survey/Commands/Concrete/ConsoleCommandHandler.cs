@@ -40,23 +40,20 @@ namespace RusAL.Survey.Commands.Concrete
             {
                 commandText = commandArr[0];
             }
-            else if (commandArr?.Length == 2)
+            else if (commandArr?.Length > 1)
             {
                 commandText = commandArr[0];
-                commandArg  = commandArr[1];
+
+                var from = Convert.ToInt32(commandArr?.Length - 1); 
+
+                var newCommandArr = new string[(Int32)from];
+
+                Array.Copy(commandArr, 1, newCommandArr, 0, from);
+
+                commandArg =  string.Join(" ", newCommandArr);
+
             }
-            else if (commandArr?.Length == 3)
-            {
-                commandText = commandArr[0];
-                commandArg  = commandArr[1] + " " + commandArr[2];
-            }
-            else 
-            {
-                var commandErrorMessage = $"Ошибка при вводе команды Команда {commandText} ";
-                hasErrors = true;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(commandErrorMessage);                
-            }
+                        
 
             var command = _commandProvider.Commands.FirstOrDefault(c => c.CommandText == commandText && !c.IsInnerCommand);
                                    
@@ -71,12 +68,12 @@ namespace RusAL.Survey.Commands.Concrete
                     }
                 }
 
-              command.Service.Start(true, survey, commandArg) ;
+              command.Service.Start(survey, commandArg, command.IsSurveyCommand);
 
                 // Перезапускаем внутренние команды анкеты 
                 if (survey.NextQuestion >= 0 && survey.InnerCommand)
                 {
-                   command.Service.Start(true, survey, "");
+                   command.Service.Start(survey, commandArg, command.IsSurveyCommand);
                 }    
                 
             }

@@ -55,9 +55,9 @@ namespace RusAL.Survey.Commands.Concrete
             {
                 CommandText = commandText,
                 Title = title,
-                Service = service, 
-                IsInnerCommand = isInner,
-                IsSurveyCommand = isSurvey
+                Service = service,
+                IsSurveyCommand = isSurvey,
+                IsInnerCommand = isInner               
             };
 
             return command;
