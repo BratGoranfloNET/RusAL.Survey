@@ -4,9 +4,15 @@ namespace RusAL.Survey.SurveyStrategy
 {
     public class InputPhoneStrategy : IInputStrategy
     {
-        public  void InputAlgorithmInterface(string strValue, SurveyItem survey)
-        {               
-            survey.Phone = strValue;           
+        public bool InputAlgorithmInterface(string strValue, SurveyItem survey)
+        {              
+
+            var inputError = false;
+
+            survey.Phone = strValue;
+
+            return inputError;
+
         }
     }
 }

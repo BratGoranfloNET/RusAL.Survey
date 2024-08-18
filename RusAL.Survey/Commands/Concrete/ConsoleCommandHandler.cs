@@ -88,7 +88,6 @@ namespace RusAL.Survey.Commands.Concrete
 
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(commandErrorMessage);
-
             }
         }
     }

@@ -4,9 +4,13 @@ namespace RusAL.Survey.SurveyStrategy
 {
     public class InputFioStrategy : IInputStrategy
     {
-        public  void InputAlgorithmInterface(string strValue, SurveyItem survey)
-        {                           
-            survey.FIO = strValue;            
+        public bool InputAlgorithmInterface(string strValue, SurveyItem survey)
+        {
+            var inputError = false;
+
+            survey.FIO = strValue;
+                        
+            return inputError;
         }
     }
 }

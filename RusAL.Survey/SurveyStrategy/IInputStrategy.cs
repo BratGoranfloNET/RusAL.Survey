@@ -4,6 +4,6 @@ namespace RusAL.Survey.SurveyStrategy
 {
     public interface IInputStrategy
     {
-        public  void InputAlgorithmInterface(string strValue, SurveyItem survey);        
+        public  bool InputAlgorithmInterface(string strValue, SurveyItem survey);        
     }
 }

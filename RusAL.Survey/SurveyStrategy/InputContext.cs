@@ -15,22 +15,41 @@ namespace RusAL.Survey.SurveyStrategy
         public bool Input(int i, string question, SurveyItem survey)
         {
             int checkInnerCommand = 0;
-
-            Console.WriteLine(question);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            
-            var strValue = Console.ReadLine();
-            checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
-            
-            if (checkInnerCommand >= 0)
+            var strValue = string.Empty;
+            var exitResult = false;
+            while (true)
             {
-                survey.NextQuestion = checkInnerCommand;
-                return true;                
+                Console.WriteLine(question);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                strValue = Console.ReadLine();
+                checkInnerCommand = SurveyHelper.CheckInnerCommands(strValue, i, survey);
+
+                if (checkInnerCommand >= 0)
+                {
+                    survey.NextQuestion = checkInnerCommand;
+                    exitResult = true;
+                    break;                   
+                }
+                else 
+                {
+                    var isError = strategy.InputAlgorithmInterface(strValue, survey);
+                    if (isError)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        continue;
+                    }
+                    else
+                    {
+                        exitResult = false;
+                        break;
+                    }
+                                       
+                }                
             }
 
-            strategy.InputAlgorithmInterface(strValue, survey);
+            return exitResult;
 
-            return false;
         }
     }
 }
